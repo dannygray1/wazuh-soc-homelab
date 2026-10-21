@@ -89,17 +89,19 @@ An initial timestamp discrepancy between Windows and Wazuh was also investigated
 
 ### Detection Evidence
 
-**Wazuh Failed-Logon Detection**
+The following screenshots show the second controlled authentication test performed after correcting the Windows VM's time-zone configuration.
 
-![Wazuh Failed-Logon Detection](screenshots/05-security-monitoring/wazuh-event-4625-detected.png)
-
-**Windows Event ID 4625 — Timestamp Validation**
+**Windows Security Event ID 4625 — October 21, 2026**
 
 ![Windows Failed-Logon Event](screenshots/05-security-monitoring/windows-event-4625-timestamp-validation.png)
 
-**Wazuh Timestamp Validation**
+**Wazuh Rule 60122 — October 21, 2026**
 
-![Wazuh Timestamp Validation](screenshots/05-security-monitoring/wazuh-failed-logon-timestamp-validation.png)
+![Wazuh Failed-Logon Detection](screenshots/05-security-monitoring/wazuh-failed-logon-timestamp-validation.png)
+
+The Windows event was recorded at 7:00:04 PM, and the corresponding Wazuh alert was displayed at 7:00:05 PM, demonstrating consistent timestamp presentation after the time-zone correction.
+
+The original October 20 detection and its associated timestamp discrepancy are preserved in the [full investigation report](documentation/failed-logon-investigation.md).
 
 ## Additional Security Monitoring
 
