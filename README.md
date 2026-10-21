@@ -22,6 +22,26 @@ The environment was built from scratch, including virtual networking, Linux serv
 | Lab Network | VirtualBox Internal Network (SOC-LAB) | Isolated communication between virtual machines |
 | Remote Administration | SSH with Ed25519 key authentication | Secure remote access to Ubuntu Server |
 
+### Network Architecture Diagram
+
+```mermaid
+flowchart TB
+    HOST["Physical Windows PC<br/>Oracle VirtualBox Host"]
+    NAT["VirtualBox NAT<br/>Host Port 2222 → Ubuntu SSH Port 22"]
+    WAZUH["SOC-WAZUH-01<br/>Ubuntu Server 24.04.5 LTS<br/>Wazuh 4.14.9<br/>192.168.56.10"]
+    WIN["SOC-WIN11-01<br/>Windows 11 Enterprise<br/>Wazuh Agent 4.14.9<br/>192.168.56.20"]
+    LAB["SOC-LAB<br/>Internal Network<br/>192.168.56.0/24"]
+
+    HOST -->|"SSH and Dashboard Tunnel"| NAT
+    NAT --> WAZUH
+    WAZUH --- LAB
+    WIN --- LAB
+    WIN -->|"Windows Security Events"| WAZUH
+```
+
+*Both virtual machines also use NAT-based adapters for external connectivity. The Wazuh dashboard is accessed through an SSH tunnel.*
+
+
 ### Network Configuration
 
 | System | Hostname | Internal IP Address |
