@@ -10,6 +10,21 @@ The environment was built from scratch, including virtual networking, Linux serv
 
 **Project Status:** In Progress — Core Infrastructure and Initial Security Investigation Completed
 
+## Key Project Results
+
+| Achievement | Result |
+|---|---|
+| SIEM Deployment | Wazuh 4.14.9 operational on Ubuntu Server |
+| Endpoint Monitoring | Windows 11 agent enrolled and actively reporting |
+| Security Detection | Windows Event ID 4625 successfully collected |
+| Wazuh Alert | Rule 60122 triggered — Level 5 |
+| Incident Investigation | Authentication failure analyzed and documented |
+| Investigation Outcome | Authorized lab activity — Closed as benign |
+
+**Detection Highlight:** Generated a controlled Windows authentication failure, verified its collection in Wazuh, investigated the associated authentication details, and validated timestamp consistency after correcting a Windows VM time-zone configuration issue.
+
+[View the Full Failed-Logon Investigation](documentation/failed-logon-investigation.md)
+
 ## Lab Architecture
 
 | Component | Technology | Purpose |
@@ -115,11 +130,11 @@ The following screenshots show the second controlled authentication test perform
 
 **Windows Security Event ID 4625 — October 21, 2026**
 
-![Windows Failed-Logon Event](screenshots/05-security-monitoring/windows-event-4625-timestamp-validation.png)
+<img src="screenshots/05-security-monitoring/windows-event-4625-timestamp-validation.png" alt="Windows Event ID 4625 showing failed-logon details and validated timestamp" width="520">
 
 **Wazuh Rule 60122 — October 21, 2026**
 
-![Wazuh Failed-Logon Detection](screenshots/05-security-monitoring/wazuh-failed-logon-timestamp-validation.png)
+<img src="screenshots/05-security-monitoring/wazuh-failed-logon-timestamp-validation.png" alt="Wazuh Rule 60122 showing the corresponding failed-logon alert" width="520">
 
 The Windows event was recorded at 7:00:04 PM, and the corresponding Wazuh alert was displayed at 7:00:05 PM, demonstrating consistent timestamp presentation after the time-zone correction.
 
