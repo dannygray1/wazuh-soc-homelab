@@ -26,17 +26,19 @@ The environment was built from scratch, including virtual networking, Linux serv
 
 ```mermaid
 flowchart TB
-    HOST["Physical Windows PC<br/>Oracle VirtualBox Host"]
-    NAT["VirtualBox NAT<br/>Host Port 2222 → Ubuntu SSH Port 22"]
-    WAZUH["SOC-WAZUH-01<br/>Ubuntu Server 24.04.5 LTS<br/>Wazuh 4.14.9<br/>192.168.56.10"]
-    WIN["SOC-WIN11-01<br/>Windows 11 Enterprise<br/>Wazuh Agent 4.14.9<br/>192.168.56.20"]
-    LAB["SOC-LAB<br/>Internal Network<br/>192.168.56.0/24"]
+    HOST["Physical Windows PC<br/>VirtualBox Host"]
 
-    HOST -->|"SSH and Dashboard Tunnel"| NAT
-    NAT --> WAZUH
-    WAZUH --- LAB
-    WIN --- LAB
-    WIN -->|"Windows Security Events"| WAZUH
+    subgraph VBOX["Oracle VirtualBox"]
+        direction TB
+        subgraph LAB["SOC-LAB — Internal Network 192.168.56.0/24"]
+            direction LR
+            WIN["SOC-WIN11-01<br/>Windows 11 Enterprise<br/>Wazuh Agent 4.14.9<br/>192.168.56.20"]
+            WAZUH["SOC-WAZUH-01<br/>Ubuntu Server 24.04.5<br/>Wazuh SIEM 4.14.9<br/>192.168.56.10"]
+        end
+    end
+
+    HOST -->|"SSH: 127.0.0.1:2222 → Ubuntu:22<br/>Dashboard via SSH tunnel"| WAZUH
+    WIN -->|"Windows events via Wazuh Agent"| WAZUH
 ```
 
 *Both virtual machines also use NAT-based adapters for external connectivity. The Wazuh dashboard is accessed through an SSH tunnel.*
