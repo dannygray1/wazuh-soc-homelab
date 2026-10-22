@@ -8,7 +8,7 @@ The purpose of this lab is to develop and demonstrate practical cybersecurity sk
 
 The environment was built from scratch, including virtual networking, Linux server administration, Wazuh installation, Windows agent deployment, and controlled security event testing.
 
-**Project Status:** In Progress — Core Infrastructure and Initial Security Investigation Completed
+**Project Status:** Completed — Initial SOC Lab Deployment and Security Investigation
 
 ## Key Project Results
 
@@ -92,7 +92,7 @@ The Wazuh dashboard is accessed from the physical Windows host through an SSH lo
 | 3 | Wazuh installation and configuration | Completed |
 | 4 | Windows 11 agent deployment | Completed |
 | 5 | Security event simulation and investigation | Completed |
-| 6 | Incident reporting and portfolio documentation | In Progress |
+| 6 | Incident reporting and portfolio documentation | Completed |
 
 ## Security Monitoring and Investigation
 
