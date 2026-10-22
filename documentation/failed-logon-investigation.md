@@ -136,3 +136,35 @@ A second controlled authentication failure was generated on October 21 to valida
 | Wazuh Dashboard | October 21, 2026, 7:00:05 PM |
 | Windows Event Record ID | 42095 |
 
+## 8. Investigation Findings
+
+The investigation established the following:
+
+- A controlled authentication attempt using an incorrect password generated Windows Security Event ID `4625`.
+- The Windows endpoint successfully forwarded the security event to Wazuh.
+- Wazuh Rule `60122` identified the authentication failure and generated a Level 5 alert.
+- The event originated from the local loopback address (`127.0.0.1`) using network logon type `3`.
+- Authentication status codes `0xC000006D` and `0xC000006A` were consistent with an incorrect-password attempt.
+- An initial timestamp discrepancy was traced to the Windows VM's time-zone configuration.
+- A second test confirmed that the Windows Event Log and Wazuh dashboard displayed consistent timestamps after the correction.
+
+## 9. Investigation Disposition
+
+**Classification:** Authorized Security Testing  
+**Disposition:** Benign — Expected Lab Activity  
+**Status:** Closed
+
+The authentication failure was intentionally generated as part of a controlled SOC detection exercise.
+
+The available evidence was consistent with the authorized test activity. No indicators of unauthorized access were identified in the investigated event.
+
+No containment or remediation actions were required for the simulated authentication failure.
+
+## 10. Lessons Learned
+
+- Windows Security Event ID `4625` provides valuable authentication-failure telemetry.
+- Authentication status codes, logon types, and source addresses help establish the context of security events.
+- Correlating Windows Event Logs with SIEM alerts helps validate endpoint monitoring and detection capabilities.
+- Time-zone configuration and timestamp consistency are important considerations during security investigations.
+- MITRE ATT&CK mappings should be evaluated against actual event evidence rather than treated as confirmation of attacker behavior.
+- Documenting investigation findings and disposition is an essential part of the SOC analyst workflow.
