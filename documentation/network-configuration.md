@@ -126,6 +126,24 @@ The SSH connection was tested successfully.
 
 The private SSH key was retained on the physical Windows host and was not uploaded to GitHub.
 
+### Wazuh Dashboard Access via SSH Tunnel
+
+The Wazuh dashboard was accessed securely from the physical Windows host using SSH local port forwarding.
+
+The following PowerShell command established the tunnel:
+
+```powershell
+ssh -i "$env:USERPROFILE\.ssh\wazuh_soc_lab_ed25519" -p 2222 -N -L 8443:127.0.0.1:443 danny@127.0.0.1
+```
+
+After establishing the connection, the Wazuh dashboard was accessible through a web browser at:
+
+`https://127.0.0.1:8443`
+
+This configuration forwarded traffic from the physical Windows host to the Wazuh dashboard running on the Ubuntu server without requiring direct dashboard access from the physical network.
+
+The dashboard used a self-signed TLS certificate, resulting in an expected browser certificate warning.
+
 ## Findings
 
 - Both virtual machines successfully obtained external network connectivity through their respective NAT configurations.
